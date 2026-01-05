@@ -5,9 +5,16 @@ return {
   config = function()
     require('bufferline').setup {
       options = {
+        truncate_names = false,
         offsets = {
           {
             filetype = 'NvimTree',
+            text = 'File Explorer',
+            text_align = 'center',
+            separator = true,
+          },
+          {
+            filetype = 'neo-tree',
             text = 'File Explorer',
             text_align = 'center',
             separator = true,
