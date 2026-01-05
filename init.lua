@@ -670,6 +670,16 @@ require('lazy').setup({
         rust_analyzer = {},
       }
 
+      -- Now setup those configurations
+      for name, config in pairs(servers) do
+        local config = config or {}
+        -- This handles overriding only values explicitly passed
+        -- by the server configuration above. Useful when disabling
+        -- certain features of an LSP (for example, turning off formatting for ts_ls)
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+        vim.lsp.config(name, config)
+      end
+
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
