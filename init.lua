@@ -201,6 +201,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', 'j', "(v:count > 1 ? \"m'\" . v:count : '') . 'j'", { noremap = true, silent = true, expr = true })
 vim.keymap.set('n', 'k', "(v:count > 1 ? \"m'\" . v:count : '') . 'k'", { noremap = true, silent = true, expr = true })
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostics', noremap = true, silent = true })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -664,6 +667,7 @@ require('lazy').setup({
             Lua = {},
           },
         },
+        rust_analyzer = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -707,7 +711,8 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { xml = true } --c = true, cpp = true }
+        local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -938,7 +943,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommended keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -975,7 +980,8 @@ require('lazy').setup({
 
 -- CUSTOM KEYBINDS
 
-vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
+-- vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
+vim.keymap.set('n', '<C-n>', '<cmd>Neotree toggle reveal_force_cwd<CR>')
 
 -- END CUSTOM KEYBINDS
 
